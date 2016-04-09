@@ -19,7 +19,7 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-PREFIX	?= arm-none-eabi
+PREFIX	?= /opt/freddie-arm-5_3/bin/arm-none-eabi
 # PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
@@ -28,14 +28,13 @@ OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
 FLASH		= $(shell which st-flash)
 
-TOOLCHAIN_DIR ?= /opt/libopencm3/arm-none-eabi
+TOOLCHAIN_DIR ?= /opt/freddie-arm-5_3/arm-none-eabi
 
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common -mcpu=cortex-m4 -mthumb \
 		   -mfloat-abi=hard -mfpu=fpv4-sp-d16 -MD -DSTM32F4
 LDSCRIPT	?= $(BINARY).ld
-LDFLAGS		+= --static -lc -lnosys -L$(TOOLCHAIN_DIR)/lib \
-			 -L$(TOOLCHAIN_DIR)/lib/stm32/f4 \
+LDFLAGS		+= --static -lc -lgcc -lnosys -L$(TOOLCHAIN_DIR)/lib/arm7e-m/fpu \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
 		   -mthumb -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
 OBJS		+= $(BINARY).o
