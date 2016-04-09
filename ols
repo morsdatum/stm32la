@@ -1,0 +1,4 @@
+#/bin/sh
+
+cd ~/ols/ols-0.9.6.1
+./run.sh
